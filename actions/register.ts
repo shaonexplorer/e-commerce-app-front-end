@@ -1,3 +1,6 @@
+"use server";
+
+import { revalidateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 export const register = async (props: FieldValues) => {
@@ -10,6 +13,8 @@ export const register = async (props: FieldValues) => {
       body: JSON.stringify({ ...props }),
     });
     const data = await res.json();
+
+    revalidateTag("users", { expire: 0 });
     return data;
   } catch (error) {
     console.log(error);

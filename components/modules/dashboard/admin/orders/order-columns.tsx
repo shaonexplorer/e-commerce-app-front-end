@@ -30,13 +30,22 @@ export const OrdersColumns: ColumnDef<Orders>[] = [
   },
   {
     accessorKey: "status",
-    header: () => {
-      return <div className="flex items-center justify-center">Status</div>;
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="flex items-center justify-center"
+        >
+          Status
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
     },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       return (
-        <div className="flex items-center justify-center">
+        <div className=" ">
           <Badge
             className={cn(
               status === "PENDING" && "bg-amber-400",
