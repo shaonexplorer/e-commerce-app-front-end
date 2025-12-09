@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckCircle, Package, Mail, Download, ArrowRight } from "lucide-react";
 import { OrderItem } from "./order-items";
 import { OrderSummary } from "./order-summary";

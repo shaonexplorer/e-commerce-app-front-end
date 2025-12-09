@@ -1,14 +1,11 @@
 import CategoryPage from "@/components/modules/root-layout/product-page/all-product-page/product-category-page";
+import { Suspense } from "react";
 
-async function ProductPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ searchTerm: string }>;
-}) {
+async function ProductPage() {
   return (
-    <div>
+    <Suspense fallback={<p>Loading...</p>}>
       <CategoryPage />
-    </div>
+    </Suspense>
   );
 }
 

@@ -1,14 +1,14 @@
 "use client";
 
 import { GetPublicProducts } from "@/actions/get-products";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import FilterSideBar from "./filter-sidebar";
 import ProductCategoryListPage from "./product-list-page";
 
 function CategoryPage() {
   const [product, setProduct] = useState(null);
-  const router = useRouter();
+
   const pathname = usePathname();
 
   const searchParams = useSearchParams();
@@ -24,10 +24,12 @@ function CategoryPage() {
   }, [pathname, searchParams]);
 
   return (
-    <div className="w-full flex gap-[24px] py-[40px]">
-      <FilterSideBar params={params} />
-      <ProductCategoryListPage product={product} params={params} />
-    </div>
+    <Suspense fallback={<p>Loading...</p>}>
+      <div className="w-full flex gap-[24px] py-[40px]">
+        <FilterSideBar params={params} />
+        <ProductCategoryListPage product={product} params={params} />
+      </div>
+    </Suspense>
   );
 }
 

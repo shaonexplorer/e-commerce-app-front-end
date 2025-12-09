@@ -1,12 +1,12 @@
-"use client";
+import CartPage from "@/components/modules/root-layout/cart/cart-page.client";
+import { Suspense } from "react";
 
-import CartPageComp from "@/components/modules/root-layout/cart/cart-page";
-import { useAppSelector } from "@/lib/hooks/hooks";
-import EmptyCart from "./empty-cart";
-
-function CartPage() {
-  const cart = useAppSelector((state) => state.cart);
-  return <div>{cart.items.length < 1 ? <EmptyCart /> : <CartPageComp />}</div>;
+function Page() {
+  return (
+    <Suspense fallback={<p>Loading..</p>}>
+      <CartPage />
+    </Suspense>
+  );
 }
 
-export default CartPage;
+export default Page;

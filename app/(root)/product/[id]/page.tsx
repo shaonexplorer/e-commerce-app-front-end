@@ -1,5 +1,6 @@
 import { GetSingleProduct } from "@/actions/get-products";
 import ProductPage from "@/components/modules/root-layout/product-page/product-page";
+import { Suspense } from "react";
 
 async function SingleProductPage({
   params,
@@ -10,9 +11,9 @@ async function SingleProductPage({
 
   const res = await GetSingleProduct(id);
   return (
-    <div>
+    <Suspense fallback={<p>Loading...</p>}>
       <ProductPage product={res.data} />
-    </div>
+    </Suspense>
   );
 }
 

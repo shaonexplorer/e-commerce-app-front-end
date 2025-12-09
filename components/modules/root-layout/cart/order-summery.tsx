@@ -3,29 +3,9 @@
 import { useAppSelector } from "@/lib/hooks/hooks";
 import svgPaths from "./svg-orders";
 import { createPayment } from "@/actions/create-payment";
-import { ICartItem } from "@/lib/features/cart-slice";
+
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
-function Frame4() {
-  return (
-    <div className="h-[6px] overflow-clip relative rounded-[12px] shrink-0 w-full">
-      <div className="absolute bg-[#faf8f9] h-[8px] left-0 top-0 w-[1280px]" />
-      <div className="absolute bg-[#b6349a] h-[6px] left-0 rounded-[24px] top-0 w-[163px]" />
-    </div>
-  );
-}
-
-function Frame9() {
-  return (
-    <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
-      <Frame4 />
-      <div className="flex flex-col font-['Degular_Demo:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0   text-[14px] text-center tracking-[-0.1px] w-full">
-        <p className="leading-[20px]">{`Free delivery + saving $3.00 on this order Go to `}</p>
-      </div>
-    </div>
-  );
-}
 
 function Frame1() {
   const cart = useAppSelector((state) => state.cart);

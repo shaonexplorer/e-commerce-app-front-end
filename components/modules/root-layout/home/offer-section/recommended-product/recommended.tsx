@@ -12,13 +12,16 @@ export interface IProduct {
 
 async function Recommended() {
   const items = await GetPublicProducts();
+  const first = items.data.length - 10;
+  const last = items.data.length;
+
   return (
     <div className="flex flex-col   gap-5">
       <p className="font-bold text-xl text-[#1C1C1C] dark:text-muted-foreground">
         Recommended Items
       </p>
       <div className="w-full grid grid-cols-2 sm:grid-cols-5 gap-5">
-        {items?.data?.slice(0, 10).map((item: IProduct) => (
+        {items?.data?.slice(first, last).map((item: IProduct) => (
           <Link href={`/product/${item.id}`} key={item.id}>
             <CardProduct productData={item} />
           </Link>

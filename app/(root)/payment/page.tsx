@@ -1,4 +1,5 @@
 import { PaymentSuccess } from "@/components/modules/root-layout/payment/payment-success-page";
+import { Suspense } from "react";
 
 async function PaymentResultPage({
   searchParams,
@@ -7,9 +8,9 @@ async function PaymentResultPage({
 }) {
   const { orderId } = await searchParams;
   return (
-    <div>
+    <Suspense fallback={<p>Loading...</p>}>
       <PaymentSuccess orderId={orderId} />
-    </div>
+    </Suspense>
   );
 }
 

@@ -1,3 +1,5 @@
+"use client";
+
 import CartItems from "./cart-items";
 import OrderSummery from "./order-summery";
 
