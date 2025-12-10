@@ -121,9 +121,9 @@ export default function NavBar() {
   const veriFiedUser = jwt.decode(accessToken as string);
   const role = (veriFiedUser as JwtPayload).userRole;
 
-  if (role == "SELLER") {
+  if (role && role == "SELLER") {
     navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
-  } else if (role == "ADMIN") {
+  } else if (role && role == "ADMIN") {
     navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
   }
 
