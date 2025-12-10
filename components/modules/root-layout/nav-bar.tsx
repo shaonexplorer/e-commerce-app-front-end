@@ -53,7 +53,9 @@ interface INavigationLinks {
 export default function NavBar() {
   // const [user, setUser] = useState<UserProfile>();
   const [isLoading, setIsLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState<string | null | undefined>();
+  const [accessToken, setAccessToken] = useState<string | null | undefined>(
+    null
+  );
 
   const navigationLinks: INavigationLinks[] = [
     { href: "/", label: "Home" },
@@ -118,13 +120,17 @@ export default function NavBar() {
     fetchUser();
   }, []);
 
-  const veriFiedUser = jwt.decode(accessToken as string);
-  const role = (veriFiedUser as JwtPayload).userRole;
+  let role: string = "";
 
-  if (role && role == "SELLER") {
-    navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
-  } else if (role && role == "ADMIN") {
-    navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
+  if (accessToken) {
+    const veriFiedUser = jwt.decode(accessToken as string);
+    role = (veriFiedUser as JwtPayload).userRole;
+
+    if (role == "SELLER") {
+      navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
+    } else if (role == "ADMIN") {
+      navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
+    }
   }
 
   const handleLogOut = async () => {
