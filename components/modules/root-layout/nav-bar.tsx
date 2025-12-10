@@ -4,6 +4,7 @@ import {
   BookOpenIcon,
   InfoIcon,
   LifeBuoyIcon,
+  ShoppingBag,
   ShoppingCart,
 } from "lucide-react";
 
@@ -34,6 +35,8 @@ import SearchInput from "./nav/search";
 import { Badge } from "@/components/ui/badge";
 import { useAppSelector } from "@/lib/hooks/hooks";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import Image from "next/image";
+import { IconShoppingBagExclamation } from "@tabler/icons-react";
 
 // Navigation links array to be used in both desktop and mobile menus
 
@@ -57,42 +60,40 @@ export default function NavBar() {
     null
   );
 
-  const navigationLinks: INavigationLinks[] = [
-    { href: "/", label: "Home" },
-    // {
-    //   label: "Features",
-    //   submenu: true,
-    //   type: "description",
-    //   items: [
-    //     {
-    //       href: "#",
-    //       label: "Components",
-    //       description: "Browse all components in the library.",
-    //     },
-    //     {
-    //       href: "#",
-    //       label: "Documentation",
-    //       description: "Learn how to use the library.",
-    //     },
-    //     {
-    //       href: "#",
-    //       label: "Templates",
-    //       description: "Pre-built layouts for common use cases.",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Pricing",
-    //   submenu: true,
-    //   type: "simple",
-    //   items: [
-    //     { href: "#", label: "Product A" },
-    //     { href: "#", label: "Product B" },
-    //     { href: "#", label: "Product C" },
-    //     { href: "#", label: "Product D" },
-    //   ],
-    // },
+  const { items } = useAppSelector((state) => state.cart);
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      setIsLoading(true);
+      // const data = await getMe();
+      // setUser(data.data);
+
+      const res = await getAccessToken();
+      setAccessToken(res);
+
+      setIsLoading(false);
+    };
+    fetchUser();
+  }, []);
+
+  let role = "";
+
+  if (accessToken) {
+    const veriFiedUser = jwt.decode(accessToken as string);
+    role = (veriFiedUser as JwtPayload).userRole;
+
+    // if (role == "SELLER") {
+    //   navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
+    // } else if (role == "ADMIN") {
+    //   navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
+    // }
+  }
+
+  const navigationLinks: INavigationLinks[] = [
+    // { href: "/", label: "Home" },
+    { href: "/product", label: "Products" },
+    ...(role == "SELLER" ? [{ href: "/seller/home", label: "Dashboard" }] : []),
+    ...(role == "ADMIN" ? [{ href: "/admin/home", label: "Dashboard" }] : []),
     {
       label: "About",
       submenu: true,
@@ -104,34 +105,6 @@ export default function NavBar() {
       ],
     },
   ];
-
-  const { items } = useAppSelector((state) => state.cart);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      setIsLoading(true);
-      // const data = await getMe();
-      // setUser(data.data);
-
-      const res = await getAccessToken();
-      setAccessToken(res);
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, []);
-
-  let role: string = "";
-
-  if (accessToken) {
-    const veriFiedUser = jwt.decode(accessToken as string);
-    role = (veriFiedUser as JwtPayload).userRole;
-
-    if (role == "SELLER") {
-      navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
-    } else if (role == "ADMIN") {
-      navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
-    }
-  }
 
   const handleLogOut = async () => {
     setIsLoading(true);
@@ -268,7 +241,15 @@ export default function NavBar() {
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <Link href="/" className="text-primary hover:text-primary/90">
-              <Logo />
+              {/* <Logo /> */}
+              <div className="w-[36px] h-[36px] relative  rounded-xl overflow-clip">
+                <Image
+                  src={"/logo/shape.png"}
+                  fill
+                  alt="logo"
+                  className="object-cover"
+                />
+              </div>
             </Link>
             {/* Navigation menu */}
             <NavigationMenu viewport={false} className="max-md:hidden">

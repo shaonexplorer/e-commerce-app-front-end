@@ -29,6 +29,8 @@ import Link from "next/link";
 import * as jwt from "jsonwebtoken";
 import { getAccessToken } from "@/actions/get-accessToken";
 
+import CustomLogo from "./modules/root-layout/logo/custom-logo";
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [userRole, setUserRole] = React.useState<string | undefined>();
 
@@ -119,10 +121,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
+              className="data-[slot=sidebar-menu-button]:p-1.5! min-h-[36px]"
             >
               <Link href="/">
-                <IconInnerShadowTop className="size-5!" />
+                {/* <IconInnerShadowTop className="size-5!" /> */}
+
+                {/* <Logo /> */}
+
+                <CustomLogo />
                 <span className="text-base font-semibold">E Commerce App</span>
               </Link>
             </SidebarMenuButton>

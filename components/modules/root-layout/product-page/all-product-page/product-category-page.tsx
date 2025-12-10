@@ -2,7 +2,7 @@
 
 import { GetPublicProducts } from "@/actions/get-products";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FilterSideBar from "./filter-sidebar";
 import ProductCategoryListPage from "./product-list-page";
 
@@ -24,12 +24,10 @@ function CategoryPage() {
   }, [pathname, searchParams]);
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <div className="w-full flex gap-[24px] py-[40px]">
-        <FilterSideBar params={params} />
-        <ProductCategoryListPage product={product} params={params} />
-      </div>
-    </Suspense>
+    <div className="w-full flex gap-[24px] py-[40px]">
+      <FilterSideBar params={params} />
+      <ProductCategoryListPage product={product} params={params} />
+    </div>
   );
 }
 

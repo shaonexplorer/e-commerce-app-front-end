@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import Image from "next/image";
 import Link from "next/link";
 
 interface MenuItem {
@@ -90,7 +91,13 @@ const Footer = ({
                   <LogoText className="text-xl">{logo.title}</LogoText>
                 </Logo> */}
                 <Link className="flex items-center gap-2" href={"/"}>
-                  <Logo />
+                  {/* <Logo /> */}
+
+                  {/* <Logo /> */}
+                  <div className="w-[36px] h-[36px] relative  rounded-xl overflow-clip">
+                    <Image src={"/logo/shape.png"} fill alt="logo" />
+                  </div>
+
                   <p className="font-bold text-xl">E Commerce App</p>
                 </Link>
               </div>

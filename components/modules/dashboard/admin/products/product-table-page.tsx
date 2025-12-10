@@ -19,7 +19,7 @@ export default async function AdminProductTable() {
   const data = await res.json();
 
   return (
-    <div className="container mx-auto  py-10 max-w-7xl">
+    <div className="container mx-auto  py-10  ">
       <DataTable columns={columns} data={data.data} />
     </div>
   );

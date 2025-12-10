@@ -69,7 +69,7 @@ export default async function OrderTable() {
   items = data.data;
 
   return (
-    <div className=" max-w-7xl mx-auto">
+    <div className=" ">
       <SellerOrderDataTable data={items} columns={SellerOrdersColumns} />
     </div>
   );
