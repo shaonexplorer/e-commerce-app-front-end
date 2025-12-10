@@ -20,7 +20,7 @@ async function Recommended() {
       <p className="font-bold text-xl text-[#1C1C1C] dark:text-muted-foreground">
         Recommended Items
       </p>
-      <div className="w-full grid grid-cols-2 sm:grid-cols-5 gap-5">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-5 sm:gap-5">
         {items?.data?.slice(first, last).map((item: IProduct) => (
           <Link href={`/product/${item.id}`} key={item.id}>
             <CardProduct productData={item} />
