@@ -2,8 +2,6 @@
 
 import {
   BookOpenIcon,
-  CarFrontIcon,
-  CarrotIcon,
   InfoIcon,
   LifeBuoyIcon,
   ShoppingCart,
@@ -27,74 +25,93 @@ import {
 } from "@/components/ui/popover";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getMe } from "@/actions/get-me";
-import { clearCookies, signOut } from "@/actions/sign-out";
+
+import { clearCookies } from "@/actions/sign-out";
 import { ModeToggle } from "../theme/theme-toggle";
 import { getAccessToken } from "@/actions/get-accessToken";
-import { useRouter } from "next/navigation";
+
 import SearchInput from "./nav/search";
 import { Badge } from "@/components/ui/badge";
 import { useAppSelector } from "@/lib/hooks/hooks";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 // Navigation links array to be used in both desktop and mobile menus
-const navigationLinks = [
-  { href: "/", label: "Home" },
-  {
-    label: "Features",
-    submenu: true,
-    type: "description",
-    items: [
-      {
-        href: "#",
-        label: "Components",
-        description: "Browse all components in the library.",
-      },
-      {
-        href: "#",
-        label: "Documentation",
-        description: "Learn how to use the library.",
-      },
-      {
-        href: "#",
-        label: "Templates",
-        description: "Pre-built layouts for common use cases.",
-      },
-    ],
-  },
-  {
-    label: "Pricing",
-    submenu: true,
-    type: "simple",
-    items: [
-      { href: "#", label: "Product A" },
-      { href: "#", label: "Product B" },
-      { href: "#", label: "Product C" },
-      { href: "#", label: "Product D" },
-    ],
-  },
-  {
-    label: "About",
-    submenu: true,
-    type: "icon",
-    items: [
-      { href: "#", label: "Getting Started", icon: "BookOpenIcon" },
-      { href: "#", label: "Tutorials", icon: "LifeBuoyIcon" },
-      { href: "#", label: "About Us", icon: "InfoIcon" },
-    ],
-  },
-];
+
+interface INavigationLinks {
+  href?: string;
+  label?: string;
+  submenu?: boolean;
+  type?: "description" | "icon" | "simple";
+  items?: {
+    href?: string;
+    label?: string;
+    description?: string;
+    icon?: string;
+  }[];
+}
 
 export default function NavBar() {
-  interface UserProfile {
-    id: number;
-    name: string;
-    email: string;
-  }
   // const [user, setUser] = useState<UserProfile>();
   const [isLoading, setIsLoading] = useState(true);
   const [accessToken, setAccessToken] = useState<string | null | undefined>();
 
-  const router = useRouter();
+  const veriFiedUser = jwt.decode(accessToken as string);
+  const role = (veriFiedUser as JwtPayload).userRole;
+
+  const navigationLinks: INavigationLinks[] = [
+    { href: "/", label: "Home" },
+    // {
+    //   label: "Features",
+    //   submenu: true,
+    //   type: "description",
+    //   items: [
+    //     {
+    //       href: "#",
+    //       label: "Components",
+    //       description: "Browse all components in the library.",
+    //     },
+    //     {
+    //       href: "#",
+    //       label: "Documentation",
+    //       description: "Learn how to use the library.",
+    //     },
+    //     {
+    //       href: "#",
+    //       label: "Templates",
+    //       description: "Pre-built layouts for common use cases.",
+    //     },
+    //   ],
+    // },
+    // {
+    //   label: "Pricing",
+    //   submenu: true,
+    //   type: "simple",
+    //   items: [
+    //     { href: "#", label: "Product A" },
+    //     { href: "#", label: "Product B" },
+    //     { href: "#", label: "Product C" },
+    //     { href: "#", label: "Product D" },
+    //   ],
+    // },
+
+    {
+      label: "About",
+      submenu: true,
+      type: "icon",
+      items: [
+        { href: "#", label: "Getting Started", icon: "BookOpenIcon" },
+        { href: "#", label: "Tutorials", icon: "LifeBuoyIcon" },
+        { href: "#", label: "About Us", icon: "InfoIcon" },
+      ],
+    },
+  ];
+
+  if (role == "SELLER") {
+    navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
+  } else if (role == "ADMIN") {
+    navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
+  }
+
   const { items } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
@@ -171,13 +188,16 @@ export default function NavBar() {
                             {link.label}
                           </div>
                           <ul>
-                            {link.items.map((item, itemIndex) => (
-                              <li key={itemIndex}>
-                                <NavigationMenuLink className="py-1.5">
-                                  <Link href={item.href}>{item.label}</Link>
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
+                            {link.items &&
+                              link?.items.map((item, itemIndex) => (
+                                <li key={itemIndex}>
+                                  <NavigationMenuLink className="py-1.5">
+                                    <Link href={item.href as string}>
+                                      {item.label}
+                                    </Link>
+                                  </NavigationMenuLink>
+                                </li>
+                              ))}
                           </ul>
                         </>
                       ) : (
@@ -262,64 +282,66 @@ export default function NavBar() {
                                 : "min-w-48"
                             )}
                           >
-                            {link.items.map((item, itemIndex) => (
-                              <li key={itemIndex}>
-                                <NavigationMenuLink
-                                  href={item.href}
-                                  className="py-1.5"
-                                >
-                                  <Link href={item.href}>
-                                    {/* Display icon if present */}
-                                    {link.type === "icon" && "icon" in item && (
-                                      <div className="flex items-center gap-2">
-                                        {item.icon === "BookOpenIcon" && (
-                                          <BookOpenIcon
-                                            size={16}
-                                            className="text-foreground opacity-60"
-                                            aria-hidden="true"
-                                          />
+                            {link.items &&
+                              link.items.map((item, itemIndex) => (
+                                <li key={itemIndex}>
+                                  <NavigationMenuLink
+                                    href={item.href}
+                                    className="py-1.5"
+                                  >
+                                    <Link href={item.href as string}>
+                                      {/* Display icon if present */}
+                                      {link.type === "icon" &&
+                                        "icon" in item && (
+                                          <div className="flex items-center gap-2">
+                                            {item.icon === "BookOpenIcon" && (
+                                              <BookOpenIcon
+                                                size={16}
+                                                className="text-foreground opacity-60"
+                                                aria-hidden="true"
+                                              />
+                                            )}
+                                            {item.icon === "LifeBuoyIcon" && (
+                                              <LifeBuoyIcon
+                                                size={16}
+                                                className="text-foreground opacity-60"
+                                                aria-hidden="true"
+                                              />
+                                            )}
+                                            {item.icon === "InfoIcon" && (
+                                              <InfoIcon
+                                                size={16}
+                                                className="text-foreground opacity-60"
+                                                aria-hidden="true"
+                                              />
+                                            )}
+                                            <span>{item.label}</span>
+                                          </div>
                                         )}
-                                        {item.icon === "LifeBuoyIcon" && (
-                                          <LifeBuoyIcon
-                                            size={16}
-                                            className="text-foreground opacity-60"
-                                            aria-hidden="true"
-                                          />
-                                        )}
-                                        {item.icon === "InfoIcon" && (
-                                          <InfoIcon
-                                            size={16}
-                                            className="text-foreground opacity-60"
-                                            aria-hidden="true"
-                                          />
-                                        )}
-                                        <span>{item.label}</span>
-                                      </div>
-                                    )}
 
-                                    {/* Display label with description if present */}
-                                    {link.type === "description" &&
-                                    "description" in item ? (
-                                      <div className="space-y-1">
-                                        <div className="font-medium">
-                                          {item.label}
+                                      {/* Display label with description if present */}
+                                      {link.type === "description" &&
+                                      "description" in item ? (
+                                        <div className="space-y-1">
+                                          <div className="font-medium">
+                                            {item.label}
+                                          </div>
+                                          <p className="line-clamp-2 text-xs text-muted-foreground">
+                                            {item?.description}
+                                          </p>
                                         </div>
-                                        <p className="line-clamp-2 text-xs text-muted-foreground">
-                                          {item.description}
-                                        </p>
-                                      </div>
-                                    ) : (
-                                      // Display simple label if not icon or description type
-                                      !link.type ||
-                                      (link.type !== "icon" &&
-                                        link.type !== "description" && (
-                                          <span>{item.label}</span>
-                                        ))
-                                    )}
-                                  </Link>
-                                </NavigationMenuLink>
-                              </li>
-                            ))}
+                                      ) : (
+                                        // Display simple label if not icon or description type
+                                        !link.type ||
+                                        (link.type !== "icon" &&
+                                          link.type !== "description" && (
+                                            <span>{item.label}</span>
+                                          ))
+                                      )}
+                                    </Link>
+                                  </NavigationMenuLink>
+                                </li>
+                              ))}
                           </ul>
                         </NavigationMenuContent>
                       </>
