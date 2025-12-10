@@ -55,9 +55,6 @@ export default function NavBar() {
   const [isLoading, setIsLoading] = useState(true);
   const [accessToken, setAccessToken] = useState<string | null | undefined>();
 
-  const veriFiedUser = jwt.decode(accessToken as string);
-  const role = (veriFiedUser as JwtPayload).userRole;
-
   const navigationLinks: INavigationLinks[] = [
     { href: "/", label: "Home" },
     // {
@@ -106,12 +103,6 @@ export default function NavBar() {
     },
   ];
 
-  if (role == "SELLER") {
-    navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
-  } else if (role == "ADMIN") {
-    navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
-  }
-
   const { items } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
@@ -126,6 +117,15 @@ export default function NavBar() {
     };
     fetchUser();
   }, []);
+
+  const veriFiedUser = jwt.decode(accessToken as string);
+  const role = (veriFiedUser as JwtPayload).userRole;
+
+  if (role == "SELLER") {
+    navigationLinks.push({ href: "/seller/home", label: "DashBoard" });
+  } else if (role == "ADMIN") {
+    navigationLinks.push({ href: "/admin/home", label: "DashBoard" });
+  }
 
   const handleLogOut = async () => {
     setIsLoading(true);
