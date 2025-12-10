@@ -37,17 +37,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${roboto.variable} ${inter.variable} antialiased`}
       >
-        <Suspense fallback={<p>Loading...</p>}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Toaster position="top-center" richColors />
-            {children}
-          </ThemeProvider>
-        </Suspense>
+        {/* <Suspense fallback={<p>Loading...</p>}> */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster position="top-center" richColors />
+          {children}
+        </ThemeProvider>
+        {/* </Suspense> */}
       </body>
     </html>
   );
