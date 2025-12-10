@@ -12,8 +12,8 @@ export interface IProduct {
 
 async function Recommended() {
   const items = await GetPublicProducts();
-  const first = items.data.length - 10;
-  const last = items.data.length;
+  const first = items?.data?.length - 10;
+  const last = items?.data?.length;
 
   return (
     <div className="flex flex-col   gap-5">

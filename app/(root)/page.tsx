@@ -7,8 +7,8 @@ import { Suspense } from "react";
 
 async function HomePage() {
   const products = await GetPublicProducts();
-  const first = products.data.length - 8;
-  const last = products.data.length;
+  const first = products?.data?.length - 8;
+  const last = products?.data?.length;
   const customProducts = products?.data?.slice(first, last);
 
   return (
