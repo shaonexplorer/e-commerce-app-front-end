@@ -249,6 +249,13 @@ export default function NavBar() {
                   alt="logo"
                   className="object-cover"
                 />
+                <Image
+                  src={"/logo/elements.png"}
+                  width={18}
+                  height={18}
+                  alt="logo"
+                  className="absolute top-[8px] left-[8px]"
+                />
               </div>
             </Link>
             {/* Navigation menu */}
