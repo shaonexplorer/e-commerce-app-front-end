@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getInvoice } from "@/actions/get-invoice";
 
 interface orderItems {
   id: string;
@@ -33,6 +34,8 @@ export function PaymentSuccess() {
     data: { buyer: { email: string }; totalAmount: number };
   }>();
 
+  const [pdf, setPdf] = useState<string | undefined>();
+
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
 
@@ -54,6 +57,15 @@ export function PaymentSuccess() {
   const shipping = 9.99;
   const tax = (subtotal as number) * 0.08;
   const total = (subtotal as number) + shipping + tax;
+
+  const generateInvoice = async () => {
+    const res = await getInvoice("123-154-987");
+    console.log(res);
+
+    const url = URL.createObjectURL(res as Blob | MediaSource);
+
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
@@ -141,7 +153,10 @@ export function PaymentSuccess() {
               Track Order
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="w-full bg-card text-muted-foreground py-3 px-4 rounded-lg border border-gray-300 dark:border-muted hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+            <button
+              onClick={() => generateInvoice()}
+              className="w-full bg-card text-muted-foreground py-3 px-4 rounded-lg border border-gray-300 dark:border-muted hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            >
               <Download className="w-4 h-4" />
               Download Invoice
             </button>
