@@ -4,37 +4,56 @@ import { CheckCircle, Package, Mail, Download, ArrowRight } from "lucide-react";
 import { OrderItem } from "./order-items";
 import { OrderSummary } from "./order-summary";
 import { getOrderItems, getSingleOrder } from "@/actions/get-order-items";
-import { IProduct } from "../home/offer-section/recommended-product/recommended";
+
 import { format } from "date-fns";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export async function PaymentSuccess({ orderId }: { orderId: string }) {
-  const orderNumber = "ORD-2024-7891";
-  const orderDate = "December 7, 2024";
+interface orderItems {
+  id: string;
+  name: string;
+  variant: string;
+  quantity: number;
+  price: number;
+  image: string;
+  Product: {
+    title: string;
+    images: string[];
+  };
+}
+
+export function PaymentSuccess() {
+  // const orderNumber = "ORD-2024-7891";
+  // const orderDate = "December 7, 2024";
   const estimatedDelivery = format(new Date(), "PPpp");
 
-  const orderItem = await getOrderItems(orderId);
-  const order = await getSingleOrder(orderId);
+  const [orderItem, setOrderItem] = useState<{ data: orderItems[] }>();
+  const [order, setOrder] = useState<{
+    data: { buyer: { email: string }; totalAmount: number };
+  }>();
+
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
+
+  useEffect(() => {
+    async function getOrderInfo() {
+      const items = await getOrderItems(orderId as string);
+      const orderData = await getSingleOrder(orderId as string);
+
+      setOrderItem(items);
+      setOrder(orderData);
+    }
+
+    getOrderInfo();
+  }, []);
 
   const email = order?.data.buyer?.email || "customer@example.com";
 
-  interface orderItems {
-    id: string;
-    name: string;
-    variant: string;
-    quantity: number;
-    price: number;
-    image: string;
-    Product: {
-      title: string;
-      images: string[];
-    };
-  }
-
   const subtotal = order?.data?.totalAmount;
   const shipping = 9.99;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  const tax = (subtotal as number) * 0.08;
+  const total = (subtotal as number) + shipping + tax;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-12">
@@ -89,7 +108,7 @@ export async function PaymentSuccess({ orderId }: { orderId: string }) {
           <div className="bg-card min-h-[280px] rounded-lg shadow-sm border border-gray-200 dark:border-muted p-6">
             <h2 className="mb-6">Order Details</h2>
             <div className="space-y-4">
-              {orderItem.data.map((item: orderItems) => (
+              {orderItem?.data.map((item: orderItems) => (
                 <OrderItem key={item.id} item={item} />
               ))}
             </div>
@@ -110,7 +129,7 @@ export async function PaymentSuccess({ orderId }: { orderId: string }) {
         {/* Order Summary Sidebar */}
         <div className="lg:col-span-1 flex flex-col">
           <OrderSummary
-            subtotal={subtotal}
+            subtotal={subtotal as number}
             shipping={shipping}
             tax={tax}
             total={total}
