@@ -149,10 +149,10 @@ export function PaymentSuccess() {
 
           {/* Action Buttons */}
           <div className="mt-6 space-y-3">
-            <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            {/* <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
               Track Order
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </button> */}
             <button
               onClick={() => generateInvoice()}
               className="w-full bg-card text-muted-foreground py-3 px-4 rounded-lg border border-gray-300 dark:border-muted hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
