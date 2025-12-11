@@ -3,7 +3,7 @@ import AdminOrderTable from "@/components/modules/dashboard/admin/orders/orders-
 function Orders() {
   return (
     <div className=" container">
-      <div className="mt-20 sm:px-10">
+      <div className="  sm:px-10">
         <AdminOrderTable />
       </div>
     </div>

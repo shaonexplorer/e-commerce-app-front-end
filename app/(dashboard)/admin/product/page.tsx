@@ -2,7 +2,7 @@ import AdminProductTable from "@/components/modules/dashboard/admin/products/pro
 
 function Product() {
   return (
-    <div className="sm:px-10 pt-20">
+    <div className="sm:px-10  ">
       <AdminProductTable />
     </div>
   );
