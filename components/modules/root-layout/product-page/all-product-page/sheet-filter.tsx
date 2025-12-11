@@ -23,8 +23,9 @@ export function SheetFilter({ params }: { params: URLSearchParams }) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" className="flex gap-2">
           <FilterIcon className="lg:hidden" />
+          <p className="   font-semibold tracking-wide">Filter</p>
         </Button>
       </SheetTrigger>
       <SheetContent side="left">

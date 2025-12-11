@@ -113,7 +113,7 @@ const Footer = ({
             {menuItems.map((section, sectionIdx) => (
               <div key={sectionIdx}>
                 <h3 className="mb-4 font-bold">{section.title}</h3>
-                <ul className="text-muted-foreground space-y-2">
+                <ul className="text-muted-foreground space-y-1">
                   {section.links.map((link, linkIdx) => (
                     <li
                       key={linkIdx}

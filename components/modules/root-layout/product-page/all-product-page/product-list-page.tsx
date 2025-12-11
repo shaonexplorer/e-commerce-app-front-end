@@ -43,7 +43,7 @@ function ProductCategoryListPage({
               router.push(`${pathname}?${params.toString()}`);
             }}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="sm:w-[180px]">
               <SelectValue placeholder="Price Low" />
             </SelectTrigger>
             <SelectContent>
