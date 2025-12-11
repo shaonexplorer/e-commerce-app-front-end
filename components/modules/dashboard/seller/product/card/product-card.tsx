@@ -28,7 +28,7 @@ export function CardProduct({
             src={images[0] || "/card/pic-07.png"}
             alt="Product Image"
             fill
-            className="object-center hover:scale-95 transition-all duration-500"
+            className="object-cover hover:scale-95 transition-all duration-500"
           />
         </div>
 
