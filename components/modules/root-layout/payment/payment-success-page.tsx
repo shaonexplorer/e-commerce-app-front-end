@@ -59,7 +59,7 @@ export function PaymentSuccess() {
   const total = (subtotal as number) + shipping + tax;
 
   const generateInvoice = async () => {
-    const res = await getInvoice("123-154-987");
+    const res = await getInvoice(orderId as string);
     console.log(res);
 
     const url = URL.createObjectURL(res as Blob | MediaSource);
