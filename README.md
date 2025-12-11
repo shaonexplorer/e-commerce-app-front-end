@@ -76,7 +76,17 @@ The project is build with next js 16.07. Shadcn is used for interactive UI, stip
    yarn install
    ```
 
-3. **Start the development server:**
+3. **Set up environment variables:**
+
+   Create a `.env` file in the root directory of the project and add the following:
+
+   ```
+
+    NEXT_PUBLIC_BACKEND_URL=https://e-commerce-app-back-end-omega.vercel.app
+
+   ```
+
+4. **Start the development server:**
    ```bash
    npm run dev
    # or
