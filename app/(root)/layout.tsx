@@ -1,7 +1,6 @@
 import { Footer } from "@/components/modules/root-layout/footer2";
 import NavBar from "@/components/modules/root-layout/nav-bar";
 import StoreProvider from "../StoreProvider";
-import Footer01 from "@/components/modules/root-layout/footer/footer";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -37,7 +37,12 @@ export function SheetFilter({ params }: { params: URLSearchParams }) {
                 defaultValue={params.get("category") || "all"}
                 className="text-muted-foreground"
                 onValueChange={(value) => {
-                  params.set("category", value);
+                  if (value == "all") {
+                    params.delete("category");
+                  } else {
+                    params.set("category", value);
+                  }
+
                   router.push(`${pathname}?${params.toString()}`);
                 }}
               >

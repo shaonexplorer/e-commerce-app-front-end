@@ -20,7 +20,7 @@ export default async function ProductTable() {
 
   return (
     <div className="container mx-auto  py-10  ">
-      <DataTable columns={columns} data={data.data} />
+      <DataTable columns={columns} data={data?.data} />
     </div>
   );
 }

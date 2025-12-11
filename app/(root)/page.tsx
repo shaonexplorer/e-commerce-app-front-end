@@ -12,24 +12,22 @@ async function HomePage() {
   const customProducts = products?.data?.slice(first, last);
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <div className="container max-w-[1240px] mx-auto flex flex-col py-10 gap-10">
-        <SectionMain />
-        <OfferSection />
-        <CategorySectionPage
-          products={customProducts}
-          title="Home and outdoor
+    <div className="container max-w-[1240px] mx-auto flex flex-col py-10 gap-10">
+      <SectionMain />
+      <OfferSection />
+      <CategorySectionPage
+        products={customProducts}
+        title="Home and outdoor
 products"
-          image={"/section-category/bg.png"}
-        />
-        <CategorySectionPage
-          products={customProducts}
-          title="Consumer electronics and gadgets"
-          image={"/section-category/bg01.png"}
-        />
-        <Recommended />
-      </div>
-    </Suspense>
+        image={"/section-category/bg.png"}
+      />
+      <CategorySectionPage
+        products={customProducts}
+        title="Consumer electronics and gadgets"
+        image={"/section-category/bg01.png"}
+      />
+      <Recommended />
+    </div>
   );
 }
 
