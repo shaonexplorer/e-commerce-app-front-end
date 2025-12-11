@@ -117,7 +117,7 @@ const Footer = ({
                   {section.links.map((link, linkIdx) => (
                     <li
                       key={linkIdx}
-                      className="hover:text-primary font-medium"
+                      className="hover:text-primary font-medium text-sm"
                     >
                       <a href={link.url}>{link.text}</a>
                     </li>
