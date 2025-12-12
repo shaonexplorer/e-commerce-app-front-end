@@ -1,11 +1,11 @@
 import AdminOrderTable from "@/components/modules/dashboard/admin/orders/orders-table-page";
+import { SectionCards } from "@/components/section-cards";
 
 function Orders() {
   return (
-    <div className=" container">
-      <div className="  sm:px-10">
-        <AdminOrderTable />
-      </div>
+    <div className="flex flex-col py-4 md:py-6  ">
+      <SectionCards />
+      <AdminOrderTable />
     </div>
   );
 }

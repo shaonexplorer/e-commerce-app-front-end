@@ -18,7 +18,7 @@ export default async function AdminOrderTable() {
   const data = await res.json();
 
   return (
-    <div className="container mx-auto  py-10  ">
+    <div className=" px-4  py-6  sm:px-6">
       <OrderDataTable columns={OrdersColumns} data={data.data} />
     </div>
   );

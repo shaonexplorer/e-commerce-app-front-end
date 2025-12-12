@@ -3,6 +3,7 @@
 import {
   BookOpenIcon,
   InfoIcon,
+  LayoutDashboardIcon,
   LifeBuoyIcon,
   ShoppingBag,
   ShoppingCart,
@@ -36,7 +37,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAppSelector } from "@/lib/hooks/hooks";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import Image from "next/image";
-import { IconShoppingBagExclamation } from "@tabler/icons-react";
+import { IconDashboard, IconShoppingBagExclamation } from "@tabler/icons-react";
 
 // Navigation links array to be used in both desktop and mobile menus
 
@@ -356,6 +357,7 @@ export default function NavBar() {
         </div>
         {/* Right side */}
         <div className="flex items-center gap-2">
+          {/* <LayoutDashboardIcon /> */}
           <Link href={"/cart"} className="relative mr-2">
             <ShoppingCart />
             {items.length > 0 && (

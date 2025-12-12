@@ -6,6 +6,7 @@ import { createPayment } from "@/actions/create-payment";
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { getAccessToken } from "@/actions/get-accessToken";
 
 function Frame1() {
   const cart = useAppSelector((state) => state.cart);
@@ -199,6 +200,11 @@ function Button() {
   const handleSubmit = async () => {
     try {
       const loadingId = toast.loading("Checking Out..");
+      const accessToken = await getAccessToken();
+      if (!accessToken) {
+        toast.error("Please log in", { id: loadingId });
+        return router.push("/login");
+      }
       const res = await createPayment(cart.items);
       console.log(res);
       if (res?.data?.session.url) {
