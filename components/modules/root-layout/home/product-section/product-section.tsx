@@ -27,17 +27,19 @@ export function ProductSection({
 }: ProductSectionProps) {
   return (
     <div
-      className="bg-white border border-[#dce0e5] dark:border-muted border-solid overflow-hidden relative rounded-[8px] w-full"
+      className="  border border-[#dce0e5] dark:border-muted border-solid overflow-hidden relative rounded-[8px] w-full"
       data-name="Section"
     >
       <div className="flex flex-col lg:flex-row">
         {/* Sidebar - full width on mobile, fixed width on desktop */}
-        <div className="w-full lg:w-[294px] h-[200px] lg:h-[300px] flex-shrink-0">
-          <CategorySidebar
-            title={title}
-            onExploreClick={onExploreClick}
-            image={image}
-          />
+        <div className="w-full lg:w-[294px] min-h-[300px] flex-shrink-0 grid grid-rows-1">
+          <div className="row-span-1">
+            <CategorySidebar
+              title={title}
+              onExploreClick={onExploreClick}
+              image={image}
+            />
+          </div>
         </div>
 
         {/* Product Grid - responsive columns */}
