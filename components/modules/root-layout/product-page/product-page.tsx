@@ -19,11 +19,11 @@ function ProductPage({ product }: { product: IProduct }) {
   console.log(cart);
 
   return (
-    <div className="mt-[68px] flex flex-col gap-[50px] w-full">
+    <div className="mt-[68px] flex flex-col gap-[50px] container mx-auto">
       {/* column 01 */}
-      <div className="flex flex-col gap-[16px] xl:flex-row sm:gap-[120px] w-full">
+      <div className="flex flex-col gap-[16px] lg:flex-row sm:gap-[32px] xl:gap-[120px]  ">
         {/* image div */}
-        <div className="border boder-[#F4F0F0] dark:border-none bg-muted/30 rounded-[32px] w-full sm:min-w-[740px] sm:h-[540px] overflow-clip flex items-center justify-center">
+        <div className="  border boder-[#F4F0F0] dark:border-none bg-muted/30 rounded-[32px] w-full xl:min-w-[740px] sm:h-[540px] overflow-clip flex items-center justify-center">
           <Image
             src={product.images[0] || "/products/bag-removebg-preview.png"}
             alt="productImage"
@@ -33,7 +33,7 @@ function ProductPage({ product }: { product: IProduct }) {
           />
         </div>
         {/* product detail */}
-        <div className="w-full flex flex-col gap-[30px]">
+        <div className="container flex-1 flex flex-col gap-[30px]">
           <div className="flex flex-col gap-[16px]">
             <h1 className="text-3xl font-semibold">
               {product.title ||
