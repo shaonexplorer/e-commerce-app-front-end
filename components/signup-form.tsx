@@ -151,8 +151,12 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   )}
                 />
                 <div className="flex items-center flex-col gap-3">
-                  <Button className="w-full" type="submit">
-                    Create Account
+                  <Button
+                    className="w-full"
+                    type="submit"
+                    onClick={() => handleSubmit(form.getValues())}
+                  >
+                    Create Customer Account
                   </Button>
                   <Button className="w-full" variant="outline" type="button">
                     Sign up with Google
@@ -229,8 +233,12 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   )}
                 />
                 <div className="flex items-center flex-col gap-3">
-                  <Button className="w-full" type="submit">
-                    Create Account
+                  <Button
+                    className="w-full"
+                    type="submit"
+                    onClick={() => handleSeller(form.getValues())}
+                  >
+                    Create Seller Account
                   </Button>
                   <Button className="w-full" variant="outline" type="button">
                     Sign up with Google
