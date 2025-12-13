@@ -29,7 +29,7 @@ function OfferSection() {
           className="absolute  top-[25px] left-[25px]"
         ></Image>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-0 max-w-[940px]">
+      <div className="w-full grid  grid-cols-2 sm:grid-cols-4 md:grid-cols-5    gap-0  ">
         {items.map((item) => (
           <CardDiscount payload={item} key={item.title} />
         ))}

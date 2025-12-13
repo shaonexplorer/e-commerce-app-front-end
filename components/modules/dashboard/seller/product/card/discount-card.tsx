@@ -15,8 +15,8 @@ export function CardDiscount({
 }) {
   const { title, discount, image } = payload;
   return (
-    <Card className=" w-[190px] h-[250px] border-inherit rounded-none border-r-0 border-t-0 border-b-0 shadow-none">
-      <CardContent className="flex flex-col items-center  justify-center gap-[7px]">
+    <Card className="   min-h-[250px] border-inherit rounded-none border-r-0 border-t-0 border-b-0 shadow-none">
+      <div className="flex flex-col items-center  gap-[7px]">
         <Image
           src={image || "/discount/watch.png"}
           width={140}
@@ -24,10 +24,10 @@ export function CardDiscount({
           alt="watch"
         ></Image>
         <p>{title}</p>
-        <Badge className="bg-[#ffdee0]  text-[#df0c3d] text-[15px]">
+        <Badge className="bg-[#ffdee0]  text-[#df0c3d] text-[15px] mt-auto">
           -{discount}%
         </Badge>
-      </CardContent>
+      </div>
     </Card>
   );
 }
