@@ -51,7 +51,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       router.push("/login");
     } else {
       // Signup failed
-      toast.error(result?.message || "Signup failed", { id: loadingId });
+      if (result.error.code == "P2002") {
+        toast.error("Email Already Exists", { id: loadingId });
+      } else toast.error(result?.message || "Signup failed", { id: loadingId });
     }
   };
 
@@ -70,7 +72,9 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       router.push("/login");
     } else {
       // Signup failed
-      toast.error(result?.message || "Signup failed", { id: loadingId });
+      if (result.error.code == "P2002") {
+        toast.error("Email Already Exists", { id: loadingId });
+      } else toast.error(result?.message || "Signup failed", { id: loadingId });
     }
   };
   return (
