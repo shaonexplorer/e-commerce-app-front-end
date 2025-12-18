@@ -36,7 +36,7 @@ export function LoginForm({
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: "admin@gmail.com", password: "123" },
   });
 
   const handleSubmit = async (data: FieldValues) => {
