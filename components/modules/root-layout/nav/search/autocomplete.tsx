@@ -140,6 +140,11 @@ export default function AutoComplete() {
       <AutocompleteInput
         placeholder="search products..."
         className={"max-w-[600px]"}
+        onKeyDown={(e) => {
+          if (e.key == "Enter") {
+            router.push(`/product?searchTerm=${searchValue}`);
+          }
+        }}
       />
       {shouldRenderPopup && (
         <AutocompletePopup aria-busy={isLoading || undefined}>
