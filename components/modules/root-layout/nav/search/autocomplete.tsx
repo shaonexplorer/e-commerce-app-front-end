@@ -14,7 +14,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { GetPublicProducts } from "@/actions/get-products";
 import { IProduct } from "../../home/offer-section/recommended-product/recommended";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 // type Movie = { id: string; title: string; year: number };
@@ -31,6 +31,10 @@ import Image from "next/image";
 
 export default function AutoComplete() {
   const [productData, setProductData] = React.useState([]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
 
   const [searchValue, setSearchValue] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -123,11 +127,16 @@ export default function AutoComplete() {
 
   const shouldRenderPopup = searchValue !== "";
 
-  const router = useRouter();
-
   const handleSubmit = (id: string) => {
     router.push(`/product/${id}`);
   };
+
+  React.useEffect(() => {
+    if (searchValue === "") {
+      params.delete("searchTerm");
+      router.push(`${pathname}?${params.toString()}`);
+    }
+  }, [searchValue]);
 
   return (
     <Autocomplete

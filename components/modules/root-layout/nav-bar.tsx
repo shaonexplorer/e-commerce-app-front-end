@@ -58,33 +58,36 @@ interface INavigationLinks {
   }[];
 }
 
-export default function NavBar() {
+export default function NavBar({ token }: { token?: string }) {
   // const [user, setUser] = useState<UserProfile>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState<string | null | undefined>(
-    null
-  );
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [accessToken, setAccessToken] = useState<string | null | undefined>(
+  //   null
+  // );
 
   const { items } = useAppSelector((state) => state.cart);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      setIsLoading(true);
-      // const data = await getMe();
-      // setUser(data.data);
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       setIsLoading(true);
 
-      const res = await getAccessToken();
-      setAccessToken(res);
+  //       const res = await getAccessToken();
 
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, []);
+  //       setAccessToken(res);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
 
   let role = "";
 
-  if (accessToken) {
-    const veriFiedUser = jwt.decode(accessToken as string);
+  if (token) {
+    const veriFiedUser = jwt.decode(token as string);
     role = (veriFiedUser as JwtPayload).userRole;
 
     // if (role == "SELLER") {
@@ -130,13 +133,13 @@ export default function NavBar() {
   ];
 
   const handleLogOut = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     // await signOut();
     await clearCookies();
-    setAccessToken(null);
+    // setAccessToken(null);
     // router.refresh();
     // setUser(undefined);
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   return (
@@ -233,7 +236,7 @@ export default function NavBar() {
                     className="-mx-1 my-1 h-px w-full bg-border"
                   />
                   <div className="flex flex-col gap-2 items-center justify-center w-full">
-                    {!accessToken && !isLoading ? (
+                    {!token ? (
                       <Button
                         asChild
                         variant="ghost"
@@ -242,7 +245,7 @@ export default function NavBar() {
                       >
                         <Link href="/login">Sign In</Link>
                       </Button>
-                    ) : !isLoading && accessToken ? (
+                    ) : token ? (
                       <Button
                         onClick={handleLogOut}
                         size="sm"
@@ -251,7 +254,7 @@ export default function NavBar() {
                         Sign Out
                       </Button>
                     ) : null}
-                    {!accessToken && !isLoading && (
+                    {!token && (
                       <Button asChild size="sm" className="text-sm w-full">
                         <Link href="/signup">Register</Link>
                       </Button>
@@ -433,7 +436,7 @@ export default function NavBar() {
               </Button>
             )}
           </div> */}
-          {!accessToken && !isLoading ? (
+          {!token ? (
             <Link
               href={"/login"}
               className="  flex-col items-center justify-center min-w-[50px] group hidden sm:flex"
@@ -446,7 +449,7 @@ export default function NavBar() {
                 Sign in
               </p>
             </Link>
-          ) : !isLoading && accessToken ? (
+          ) : token ? (
             <div
               className="hidden sm:flex flex-col items-center justify-center min-w-[60px] cursor-pointer group"
               onClick={handleLogOut}
