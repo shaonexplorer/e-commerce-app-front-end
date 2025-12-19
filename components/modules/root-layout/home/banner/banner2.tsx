@@ -36,7 +36,7 @@ export function Banner2() {
       data-name="Banner"
     >
       <div className="absolute flex h-full items-center justify-center left-[calc(50%+0.5px)] top-0 translate-x-[-50%] w-full">
-        <div className="flex-none rotate-[180deg] scale-y-[-100%] h-full w-full">
+        <div className="flex-none   h-full w-full">
           <div className="h-full relative w-full" data-name="image 130">
             <div className="absolute inset-0 opacity-70 overflow-hidden pointer-events-none">
               {/* <img
