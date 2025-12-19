@@ -382,18 +382,21 @@ export default function NavBar() {
         {/* Right side */}
         <div className="flex items-center gap-[17px] text-sm">
           {/* <LayoutDashboardIcon /> */}
-          <Link
-            href={role == "SELLER" ? "/seller/home" : "/admin/home"}
-            className="hidden sm:flex flex-col items-center justify-center group"
-          >
-            <LayoutDashboard
-              size={20}
-              className="group-hover:translate-y-1 transiton-all duration-500"
-            />
-            <p className="group-hover:translate-y-1 transiton-all duration-500">
-              DashBoard
-            </p>
-          </Link>
+          {role && (role == "SELLER" || role == "ADMIN") ? (
+            <Link
+              href={role == "SELLER" ? "/seller/home" : "/admin/home"}
+              className="hidden sm:flex flex-col items-center justify-center group"
+            >
+              <LayoutDashboard
+                size={20}
+                className="group-hover:translate-y-1 transiton-all duration-500"
+              />
+              <p className="group-hover:translate-y-1 transiton-all duration-500">
+                DashBoard
+              </p>
+            </Link>
+          ) : null}
+
           <Link
             href={"/cart"}
             className=" relative flex-col items-center justify-center  group hidden sm:flex"
