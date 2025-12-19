@@ -8,6 +8,7 @@ export interface IProduct {
   title: string;
   price: number;
   quantity: number;
+  description: string;
 }
 
 async function Recommended() {

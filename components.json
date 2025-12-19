@@ -21,6 +21,7 @@
   "registries": {
     "@shadcnblocks": {
       "url": "https://shadcnblocks.com/r/{name}"
-    }
+    },
+    "@coss": "https://coss.com/ui/r/{name}.json"
   }
 }

@@ -4,7 +4,6 @@ import OfferSection from "@/components/modules/root-layout/home/offer-section/of
 import Recommended from "@/components/modules/root-layout/home/offer-section/recommended-product/recommended";
 import CategorySectionPage from "@/components/modules/root-layout/home/product-section/category-section-page";
 import SectionMain from "@/components/modules/root-layout/home/section-main/section-main";
-import { Suspense } from "react";
 
 async function HomePage() {
   const products = await GetPublicProducts();

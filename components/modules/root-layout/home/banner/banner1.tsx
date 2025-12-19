@@ -77,6 +77,14 @@ export function Banner1() {
         >
           <SwiperSlide>
             <Image
+              src={"/banner/bn-05.png"}
+              alt="banner"
+              width={650}
+              height={350}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
               src={"/banner/bn-04.png"}
               alt="banner"
               width={650}
@@ -95,6 +103,22 @@ export function Banner1() {
           <SwiperSlide>
             <Image
               src={"/banner/bn-03.jpg"}
+              alt="banner"
+              width={650}
+              height={350}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src={"/banner/bn-06.png"}
+              alt="banner"
+              width={650}
+              height={350}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src={"/banner/bn-07.png"}
               alt="banner"
               width={650}
               height={350}

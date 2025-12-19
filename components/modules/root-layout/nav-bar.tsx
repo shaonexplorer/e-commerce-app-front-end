@@ -3,10 +3,13 @@
 import {
   BookOpenIcon,
   InfoIcon,
+  LayoutDashboard,
   LayoutDashboardIcon,
   LifeBuoyIcon,
+  LogOut,
   ShoppingBag,
   ShoppingCart,
+  User,
 } from "lucide-react";
 
 import Logo from "@/components/logo";
@@ -38,6 +41,7 @@ import { useAppSelector } from "@/lib/hooks/hooks";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import Image from "next/image";
 import { IconDashboard, IconShoppingBagExclamation } from "@tabler/icons-react";
+import AutoComplete from "./nav/search/autocomplete";
 
 // Navigation links array to be used in both desktop and mobile menus
 
@@ -92,9 +96,10 @@ export default function NavBar() {
 
   const navigationLinks: INavigationLinks[] = [
     // { href: "/", label: "Home" },
-    { href: "/product", label: "Products" },
+    // { href: "/product", label: "Products" },
     ...(role == "SELLER" ? [{ href: "/seller/home", label: "Dashboard" }] : []),
     ...(role == "ADMIN" ? [{ href: "/admin/home", label: "Dashboard" }] : []),
+    { href: "/cart", label: "Cart" },
     {
       label: "About",
       submenu: true,
@@ -105,6 +110,23 @@ export default function NavBar() {
         { href: "#", label: "About Us", icon: "InfoIcon" },
       ],
     },
+  ];
+
+  const navigationLinks01: INavigationLinks[] = [
+    // { href: "/", label: "Home" },
+    // { href: "/product", label: "Products" },
+    // ...(role == "SELLER" ? [{ href: "/seller/home", label: "Dashboard" }] : []),
+    // ...(role == "ADMIN" ? [{ href: "/admin/home", label: "Dashboard" }] : []),
+    // {
+    //   label: "About",
+    //   submenu: true,
+    //   type: "icon",
+    //   items: [
+    //     { href: "#", label: "Getting Started", icon: "BookOpenIcon" },
+    //     { href: "#", label: "Tutorials", icon: "LifeBuoyIcon" },
+    //     { href: "#", label: "About Us", icon: "InfoIcon" },
+    //   ],
+    // },
   ];
 
   const handleLogOut = async () => {
@@ -262,7 +284,7 @@ export default function NavBar() {
             {/* Navigation menu */}
             <NavigationMenu viewport={false} className="max-md:hidden">
               <NavigationMenuList className="gap-2">
-                {navigationLinks.map((link, index) => (
+                {navigationLinks01.map((link, index) => (
                   <NavigationMenuItem key={index}>
                     {link.submenu ? (
                       <>
@@ -353,22 +375,46 @@ export default function NavBar() {
         </div>
         {/* search input */}
         <div className="w-full  ">
-          <SearchInput />
+          {/* <SearchInput /> */}
+          {/* auto complete search input */}
+          <AutoComplete />
         </div>
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-[17px] text-sm">
           {/* <LayoutDashboardIcon /> */}
-          <Link href={"/cart"} className="relative mr-2">
-            <ShoppingCart />
+          <Link
+            href={role == "SELLER" ? "/seller/home" : "/admin/home"}
+            className="hidden sm:flex flex-col items-center justify-center group"
+          >
+            <LayoutDashboard
+              size={20}
+              className="group-hover:translate-y-1 transiton-all duration-500"
+            />
+            <p className="group-hover:translate-y-1 transiton-all duration-500">
+              DashBoard
+            </p>
+          </Link>
+          <Link
+            href={"/cart"}
+            className=" relative flex-col items-center justify-center  group hidden sm:flex"
+          >
+            <ShoppingCart
+              size={20}
+              className="group-hover:translate-y-1 transiton-all duration-500"
+            />
+            <p className="group-hover:translate-y-1 transiton-all duration-500">
+              Cart
+            </p>
             {items.length > 0 && (
               <Badge className="absolute top-[-10px] right-[-10px] rounded-full w-[20px] h-[20px] bg-green-400">
-                {items.reduce((total, item) => total + item.quantity, 0)}
+                <p className="text-[#0C1D31]">
+                  {items.reduce((total, item) => total + item.quantity, 0)}
+                </p>
               </Badge>
             )}
           </Link>
           <ModeToggle />
-
-          <div className="hidden sm:flex">
+          {/* <div className="hidden sm:flex">
             {!accessToken && !isLoading ? (
               <Button asChild variant="ghost" size="sm" className="text-sm">
                 <Link href="/login">Sign In</Link>
@@ -383,7 +429,34 @@ export default function NavBar() {
                 <Link href="/signup">Register</Link>
               </Button>
             )}
-          </div>
+          </div> */}
+          {!accessToken && !isLoading ? (
+            <Link
+              href={"/login"}
+              className="  flex-col items-center justify-center min-w-[50px] group hidden sm:flex"
+            >
+              <User
+                size={20}
+                className="group-hover:translate-y-1 transiton-all duration-500"
+              />
+              <p className="group-hover:translate-y-1 transiton-all duration-500">
+                Sign in
+              </p>
+            </Link>
+          ) : !isLoading && accessToken ? (
+            <div
+              className="hidden sm:flex flex-col items-center justify-center min-w-[60px] cursor-pointer group"
+              onClick={handleLogOut}
+            >
+              <LogOut
+                size={20}
+                className="group-hover:translate-y-1 transiton-all duration-500"
+              />
+              <p className="group-hover:translate-y-1 transiton-all duration-500">
+                Sign out
+              </p>
+            </div>
+          ) : null}
         </div>
       </div>
     </header>
