@@ -440,7 +440,7 @@ function Frame13() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full  ">
       <Frame12 />
-      <p className="font-['Inter:Regular',sans-serif] font-normal leading-[1.7] not-italic relative shrink-0 text-muted-foreground text-[13px] w-full sm:break-words">{`This review was collected as part of a promotion.] I forgot to post my photos from my review! So here is my review again. A perfect combination of softness, strength, and proper friction to make any user leaving clean and spotless!! I have been purchasing for years and Angel Soft isn't too thick where you think you are using a towel and it's not too thin leaving you with unexpected tears during use!! Some say I have an addition to Angel Soft, I say it's dedication for a great product!! See the attached photos from my last purchase!`}</p>
+      <p className="font-custom font-normal leading-[1.7] not-italic relative shrink-0 text-muted-foreground   text-[13px] w-full sm:break-words">{`This review was collected as part of a promotion.] I forgot to post my photos from my review! So here is my review again. A perfect combination of softness, strength, and proper friction to make any user leaving clean and spotless!! I have been purchasing for years and Angel Soft isn't too thick where you think you are using a towel and it's not too thin leaving you with unexpected tears during use!! Some say I have an addition to Angel Soft, I say it's dedication for a great product!! See the attached photos from my last purchase!`}</p>
     </div>
   );
 }
@@ -536,7 +536,7 @@ function Frame22() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full">
       <Frame21 />
-      <p className="font-['Inter:Regular',sans-serif] font-normal leading-[1.7] not-italic relative shrink-0 text-muted-foreground text-[14px] w-full break-words">{`This review was collected as part of a promotion.] I forgot to post my photos from my review! So here is my review again. A perfect combination of softness, strength, and proper friction to make any user leaving clean and spotless!! I have been purchasing for years and Angel Soft isn't too thick where you think you are using a towel and it's not too thin leaving you with unexpected tears during use!! Some say I have an addition to Angel Soft, I say it's dedication for a great product!! See the attached photos from my last purchase!`}</p>
+      <p className="font-custom font-normal leading-[1.7] not-italic relative shrink-0 text-muted-foreground   text-[14px] w-full break-words">{`This review was collected as part of a promotion.] I forgot to post my photos from my review! So here is my review again. A perfect combination of softness, strength, and proper friction to make any user leaving clean and spotless!! I have been purchasing for years and Angel Soft isn't too thick where you think you are using a towel and it's not too thin leaving you with unexpected tears during use!! Some say I have an addition to Angel Soft, I say it's dedication for a great product!! See the attached photos from my last purchase!`}</p>
     </div>
   );
 }

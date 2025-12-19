@@ -1,4 +1,16 @@
+"use client";
+
 import { ChevronRight } from "lucide-react";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+
+import Image from "next/image";
 
 function Text() {
   return (
@@ -44,17 +56,54 @@ export function Banner1() {
       data-name="banner"
     >
       <div
-        className="absolute h-full left-0 top-0 w-full"
+        className="absolute h-full  inset-0  w-full"
         data-name="Banner-board-800x420 1"
       >
-        <img
+        {/* <img
           alt=""
           className="absolute inset-0 max-w-none object-center object-cover pointer-events-none size-full"
           src={"/banner/banner1.png"}
-        />
+        /> */}
+        <Swiper
+          spaceBetween={0}
+          centeredSlides={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          navigation={false}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <Image
+              src={"/banner/bn-04.png"}
+              alt="banner"
+              width={650}
+              height={350}
+              className="object-center "
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src={"/banner/bn-02.png"}
+              alt="banner"
+              width={650}
+              height={350}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image
+              src={"/banner/bn-03.jpg"}
+              alt="banner"
+              width={650}
+              height={350}
+            />
+          </SwiperSlide>
+        </Swiper>
       </div>
-      <Text />
-      <LearnMore />
+      {/* <Text />
+      <LearnMore /> */}
     </div>
   );
 }

@@ -90,7 +90,7 @@ export function CategorySidebar({
         data-name="info"
       >
         <div className="min-w-full relative shrink-0 text-[#14181f]">
-          <p className="mb-0 font-semibold text-xl">{title}</p>
+          <p className="mb-0 font-bold text-[#111111] text-xl">{title}</p>
         </div>
         <ExploreButton onClick={onExploreClick} />
       </div>

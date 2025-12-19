@@ -1,4 +1,5 @@
 import { GetPublicProducts } from "@/actions/get-products";
+import CountDown from "@/components/modules/root-layout/home/countdown/countdown";
 import OfferSection from "@/components/modules/root-layout/home/offer-section/offer-section";
 import Recommended from "@/components/modules/root-layout/home/offer-section/recommended-product/recommended";
 import CategorySectionPage from "@/components/modules/root-layout/home/product-section/category-section-page";
@@ -27,6 +28,7 @@ products"
         image={"/section-category/bg01.png"}
       />
       <Recommended />
+      {/* <CountDown /> */}
     </div>
   );
 }

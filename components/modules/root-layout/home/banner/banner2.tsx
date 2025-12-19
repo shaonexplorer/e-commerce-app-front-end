@@ -1,3 +1,15 @@
+"use client";
+
+import Image from "next/image";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
 function ButtonPrimaryTextLabelCompactDefault() {
   return (
     <div
@@ -27,19 +39,56 @@ export function Banner2() {
         <div className="flex-none rotate-[180deg] scale-y-[-100%] h-full w-full">
           <div className="h-full relative w-full" data-name="image 130">
             <div className="absolute inset-0 opacity-70 overflow-hidden pointer-events-none">
-              <img
+              {/* <img
                 alt=""
                 className="absolute h-full left-0 max-w-none top-0 w-full object-cover"
                 src={"/banner/banner2.png"}
-              />
+              /> */}
+              <Swiper
+                spaceBetween={0}
+                centeredSlides={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                }}
+                navigation={false}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper"
+              >
+                <SwiperSlide>
+                  <Image
+                    src={"/banner/banner-05.png"}
+                    alt="banner"
+                    width={650}
+                    height={350}
+                    className="object-center "
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Image
+                    src={"/banner/banner-06.png"}
+                    alt="banner"
+                    width={650}
+                    height={350}
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <Image
+                    src={"/banner/banner-07.png"}
+                    alt="banner"
+                    width={650}
+                    height={350}
+                  />
+                </SwiperSlide>
+              </Swiper>
             </div>
           </div>
         </div>
       </div>
-      <p className="absolute font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[1.4] left-1/2 not-italic text-[16px] sm:text-[18px] text-center text-white top-[28px] translate-x-[-50%] w-[80%] max-w-[193px]">
+      {/* <p className="absolute font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[1.4] left-1/2 not-italic text-[16px] sm:text-[18px] text-center text-white top-[28px] translate-x-[-50%] w-[80%] max-w-[193px]">
         Get US $10 off with new supplier
       </p>
-      <ButtonPrimaryTextLabelCompactDefault />
+      <ButtonPrimaryTextLabelCompactDefault /> */}
     </div>
   );
 }
