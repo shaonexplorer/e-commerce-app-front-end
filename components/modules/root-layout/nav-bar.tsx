@@ -165,9 +165,7 @@ export default function NavBar({ token }: { token?: string }) {
   return (
     <header
       className={`border-b px-4 md:px-6 ${
-        isSticky
-          ? "sticky top-0 z-40 bg-background/95 backdrop-blur-sm translate-y-0"
-          : "-translate-y-full"
+        isSticky ? "sticky top-0 z-40 bg-background/95 backdrop-blur-sm  " : " "
       } transition-all duration-500 border-border`}
     >
       <div className="flex h-16 items-center justify-between gap-4">
