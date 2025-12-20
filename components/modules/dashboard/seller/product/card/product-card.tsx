@@ -1,3 +1,6 @@
+"use client";
+
+import { IProduct } from "@/components/modules/root-layout/home/offer-section/recommended-product/recommended";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,23 +9,24 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { add } from "@/lib/features/cart-slice";
+import { useAppDispatch } from "@/lib/hooks/hooks";
+import { CirclePlus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { toast } from "sonner";
 
-export function CardProduct({
-  productData,
-}: {
-  productData: {
-    id: string;
-    images: string[];
-    title: string;
-    price: number;
-    quantity: number;
-  };
-}) {
+export function CardProduct({ productData }: { productData: IProduct }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useAppDispatch();
   const { images, title, price } = productData;
   return (
-    <Card className="w-full hover:shadow-foreground hover:shadow-sm transition-all duration-500   sm:max-w-[232px] p-0 overflow-clip shadow-none border-[#dce0e5] border dark:border-muted">
-      <CardContent className="p-0 overflow-clip">
+    <Card
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="w-full hover:shadow-foreground hover:shadow-sm hover:scale-105 transition-all duration-500   sm:max-w-[232px] p-0 overflow-clip shadow-none border-[#dce0e5] border dark:border-muted"
+    >
+      <CardContent className="p-0 overflow-clip relative">
         <div className="relative max-w-[232px] h-[220px]">
           <Image
             src={images[0] || "/card/pic-07.png"}
@@ -30,6 +34,19 @@ export function CardProduct({
             fill
             className="object-cover hover:scale-95 transition-all duration-500"
           />
+          {isHovered && (
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("clicked");
+                dispatch(add(productData));
+                toast.success("product added successfully");
+              }}
+              className="absolute  right-5 top-5 z-50"
+            >
+              <CirclePlus />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col justify-around items-stretch p-4 gap-2">

@@ -8,8 +8,9 @@ import { getOrderItems, getSingleOrder } from "@/actions/get-order-items";
 import { format } from "date-fns";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { getInvoice } from "@/actions/get-invoice";
+import Loading from "@/app/loading";
 
 interface orderItems {
   id: string;
@@ -24,32 +25,40 @@ interface orderItems {
   };
 }
 
-export function PaymentSuccess() {
+export function PaymentSuccess({
+  order,
+  orderItem,
+}: {
+  order: {
+    data: { buyer: { email: string }; totalAmount: number };
+  };
+  orderItem: { data: orderItems[] };
+}) {
   // const orderNumber = "ORD-2024-7891";
   // const orderDate = "December 7, 2024";
   const estimatedDelivery = format(new Date(), "PPpp");
 
-  const [orderItem, setOrderItem] = useState<{ data: orderItems[] }>();
-  const [order, setOrder] = useState<{
-    data: { buyer: { email: string }; totalAmount: number };
-  }>();
+  // const [orderItem, setOrderItem] = useState<{ data: orderItems[] }>();
+  // const [order, setOrder] = useState<{
+  //   data: { buyer: { email: string }; totalAmount: number };
+  // }>();
 
-  const [pdf, setPdf] = useState<string | undefined>();
+  // const [pdf, setPdf] = useState<string | undefined>();
 
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
 
-  useEffect(() => {
-    async function getOrderInfo() {
-      const items = await getOrderItems(orderId as string);
-      const orderData = await getSingleOrder(orderId as string);
+  // useEffect(() => {
+  //   async function getOrderInfo() {
+  //     const items = await getOrderItems(orderId as string);
+  //     const orderData = await getSingleOrder(orderId as string);
 
-      setOrderItem(items);
-      setOrder(orderData);
-    }
+  //     setOrderItem(items);
+  //     setOrder(orderData);
+  //   }
 
-    getOrderInfo();
-  }, []);
+  //   getOrderInfo();
+  // }, []);
 
   const email = order?.data.buyer?.email || "customer@example.com";
 
@@ -119,6 +128,7 @@ export function PaymentSuccess() {
         <div className="lg:col-span-2">
           <div className="bg-card min-h-[280px] rounded-lg shadow-sm border border-gray-200 dark:border-muted p-6">
             <h2 className="mb-6">Order Details</h2>
+
             <div className="space-y-4">
               {orderItem?.data.map((item: orderItems) => (
                 <OrderItem key={item.id} item={item} />

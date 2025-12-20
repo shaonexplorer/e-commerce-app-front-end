@@ -41,7 +41,7 @@ function SideBarItem({ item }: { item: (typeof items)[0] }) {
   return (
     <Link
       href={item.href}
-      className="w-full flex items-center gap-[12px] h-[40px] px-[10px] rounded-xl hover:bg-muted font-semibold"
+      className="w-full flex items-center gap-[12px] h-[40px] px-[10px] rounded-xl hover:bg-muted hover:translate-x-1 transition-all duration-300 durration-500 font-semibold"
     >
       <item.icon />
       {item.title}

@@ -65,6 +65,26 @@ export default function NavBar({ token }: { token?: string }) {
   //   null
   // );
 
+  const [isSticky, setIsSticky] = useState(false);
+  const [yValue, setYValue] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < yValue) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+      setYValue(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [yValue]);
+
   const { items } = useAppSelector((state) => state.cart);
 
   // useEffect(() => {
@@ -143,7 +163,13 @@ export default function NavBar({ token }: { token?: string }) {
   };
 
   return (
-    <header className="border-b px-4 md:px-6">
+    <header
+      className={`border-b px-4 md:px-6 ${
+        isSticky
+          ? "sticky top-0 z-40 bg-background/95 backdrop-blur-sm translate-y-0"
+          : "-translate-y-full"
+      } transition-all duration-500 border-border`}
+    >
       <div className="flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">

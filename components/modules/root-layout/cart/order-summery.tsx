@@ -7,6 +7,8 @@ import { createPayment } from "@/actions/create-payment";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { getAccessToken } from "@/actions/get-accessToken";
+import { useState } from "react";
+import { set } from "zod";
 
 function Frame1() {
   const cart = useAppSelector((state) => state.cart);
@@ -197,9 +199,14 @@ function Button() {
   const cart = useAppSelector((state) => state.cart);
   const router = useRouter();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  console.log({ isSubmitting });
+
   const handleSubmit = async () => {
     try {
       const loadingId = toast.loading("Checking Out..");
+      setIsSubmitting(true);
       const accessToken = await getAccessToken();
       if (!accessToken) {
         toast.error("Please log in", { id: loadingId });
@@ -213,15 +220,18 @@ function Button() {
       } else if (!res.success) {
         toast.error(res.message, { id: loadingId });
       }
+      setIsSubmitting(false);
     } catch (error) {
       console.log(error);
+      setIsSubmitting(false);
     }
   };
   return (
-    <div
+    <button
       onClick={() => handleSubmit()}
-      className="bg-[#b6349a] relative rounded-[39px] shrink-0 w-full cursor-pointer"
+      className="bg-[#b6349a] relative rounded-[39px] shrink-0 w-full disabled:opacity-20 "
       data-name="Button"
+      disabled={isSubmitting}
     >
       <div className="flex flex-row items-center justify-center size-full">
         <div className="box-border content-stretch flex gap-[8px] items-center justify-center px-[24px] py-[12px] relative w-full">
@@ -233,7 +243,7 @@ function Button() {
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
